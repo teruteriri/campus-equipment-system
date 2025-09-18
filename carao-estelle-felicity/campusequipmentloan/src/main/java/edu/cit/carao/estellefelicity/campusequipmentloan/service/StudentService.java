@@ -5,6 +5,8 @@ import edu.cit.carao.estellefelicity.campusequipmentloan.repository.StudentRepos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentService {
     @Autowired
@@ -14,7 +16,15 @@ public class StudentService {
         return studentRepository.findByStudentNo(studentNo).orElse(null);
     }
 
+    public List<StudentEntity> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
     public StudentEntity save(StudentEntity student) {
         return studentRepository.save(student);
+    }
+
+    public void deleteByStudentNo(String studentNo) {
+        studentRepository.findByStudentNo(studentNo).ifPresent(studentRepository::delete);
     }
 }

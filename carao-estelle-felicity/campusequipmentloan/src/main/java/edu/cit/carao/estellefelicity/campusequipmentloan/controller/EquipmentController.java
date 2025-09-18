@@ -3,9 +3,7 @@ package edu.cit.carao.estellefelicity.campusequipmentloan.controller;
 import edu.cit.carao.estellefelicity.campusequipmentloan.entity.EquipmentEntity;
 import edu.cit.carao.estellefelicity.campusequipmentloan.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,4 +18,20 @@ public class EquipmentController {
     public List<EquipmentEntity> getAvailableEquipment() {
         return equipmentService.getAvailableEquipment();
     }
+
+    @GetMapping("/all")
+    public List<EquipmentEntity> getAllEquipment() {
+        return equipmentService.getAllEquipment();
+    }
+
+    @PostMapping("/add")
+    public EquipmentEntity addEquipment(@RequestBody EquipmentEntity equipment) {
+        return equipmentService.addEquipment(equipment);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEquipment(@PathVariable Long id) {
+        equipmentService.deleteEquipment(id);
+    }
 }
+

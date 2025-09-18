@@ -16,11 +16,26 @@ public class EquipmentService {
         return equipmentRepository.findByAvailabilityTrue();
     }
 
+    public List<EquipmentEntity> getAllEquipment() {
+        return equipmentRepository.findAll();
+    }
+
     public EquipmentEntity findById(Long id) {
         return equipmentRepository.findById(id).orElse(null);
     }
 
     public EquipmentEntity save(EquipmentEntity equipment) {
         return equipmentRepository.save(equipment);
+    }
+
+    public EquipmentEntity addEquipment(EquipmentEntity equipment) {
+        if (equipment.getAvailability() == null) {
+            equipment.setAvailability(true);
+        }
+        return equipmentRepository.save(equipment);
+    }
+
+    public void deleteEquipment(Long id) {
+        equipmentRepository.deleteById(id);
     }
 }

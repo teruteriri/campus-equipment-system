@@ -34,13 +34,14 @@ public class LoanEntity {
 
     }
 
-    public LoanEntity(EquipmentEntity equipment, StudentEntity student) {
+    public LoanEntity(EquipmentEntity equipment, StudentEntity student, LocalDate startDate) {
         this.equipment = equipment;
         this.student = student;
-        this.startDate = LocalDate.now();
+        this.startDate = startDate;
         this.dueDate = startDate.plusDays(7);
         this.status = LoanStatus.ACTIVE;
     }
+
 
     public Long getId() {
         return id;

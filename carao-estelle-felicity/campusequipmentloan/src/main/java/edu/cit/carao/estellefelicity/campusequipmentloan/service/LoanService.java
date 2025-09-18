@@ -23,7 +23,11 @@ public class LoanService {
     @Autowired
     private StudentService studentService;
 
-    public LoanEntity createLoan(Long equipmentId, String studentNo) {
+    public LoanEntity createLoan (Long equipmentId, String studentNo, LocalDate startDate) {
+        if (startDate == null) {
+            startDate = LocalDate.now();
+        }
+
         StudentEntity student = studentService.findByStudentNo(studentNo);
         if (student == null) {
             throw new RuntimeException("Student not found");
@@ -43,7 +47,7 @@ public class LoanService {
             throw new RuntimeException("Equipment not available");
         }
 
-        LoanEntity loan = new LoanEntity(equipment, student);
+        LoanEntity loan = new LoanEntity(equipment, student, startDate);
 
         equipment.setAvailability(false);
         equipmentService.save(equipment);
@@ -51,7 +55,7 @@ public class LoanService {
         return loanRepository.save(loan);
     }
 
-    public LoanEntity returnLoan(Long loanId) {
+    public LoanEntity returnLoan (Long loanId, LocalDate returnDate) {
         LoanEntity loan = loanRepository.findById(loanId).orElse(null);
         if (loan == null) {
             throw new RuntimeException("Loan not found");
@@ -61,7 +65,6 @@ public class LoanService {
             throw new RuntimeException("Loan is not active");
         }
 
-        LocalDate returnDate = LocalDate.now();
         loan.setReturnDate(returnDate);
 
         if (returnDate.isAfter(loan.getDueDate())) {
