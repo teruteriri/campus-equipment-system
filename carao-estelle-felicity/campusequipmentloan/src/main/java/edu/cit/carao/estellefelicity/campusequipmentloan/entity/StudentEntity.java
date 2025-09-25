@@ -12,11 +12,10 @@ public class StudentEntity {
     private String name;
     private String email;
 
-    public StudentEntity()  {
-
+    public StudentEntity() {
     }
 
-    public StudentEntity(int id, String studentNo, String name, String email) {
+    public StudentEntity(Long id, String studentNo, String name, String email, String username, String password) {
         this.studentNo = studentNo;
         this.name = name;
         this.email = email;
