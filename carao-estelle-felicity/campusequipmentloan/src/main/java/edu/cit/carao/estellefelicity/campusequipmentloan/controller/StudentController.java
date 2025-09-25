@@ -24,8 +24,8 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @PostMapping("/add")
-    public StudentEntity addStudent(@RequestBody StudentEntity student) {
+    @PostMapping("/register")
+    public StudentEntity registerStudent(@RequestBody StudentEntity student) {
         return studentService.save(student);
     }
 
